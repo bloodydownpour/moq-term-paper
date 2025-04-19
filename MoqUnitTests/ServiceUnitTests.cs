@@ -33,6 +33,12 @@ namespace MoqTestingProject
             mockRepo.Setup(repo => repo.GetAll()).Returns(persons);
 
             var service = new PersonService(mockRepo.Object);
+
+            var result = service.GetAll();
+
+            Assert.Equal(3, result.Count());
+            Assert.Contains(result, p => p.Name == "John");
+            Assert.Contains(result, p => p.Surname == "Smith");
         }
     }
 }
