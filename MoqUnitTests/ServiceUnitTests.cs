@@ -26,9 +26,9 @@ namespace MoqTestingProject
             var mockRepo = new Mock<IPersonRepository>();
             var persons = new List<Person>
             {
-                new Person(1, "John", "Doe"),
-                new Person(2, "Jane", "Smith"),
-                new Person(3, "Алёна", "Найдёнова")
+                new(1, "John", "Doe"),
+                new(2, "Jane", "Smith"),
+                new(3, "Алёна", "Найдёнова")
             }.AsQueryable();
             mockRepo.Setup(repo => repo.GetAll()).Returns(persons);
 
