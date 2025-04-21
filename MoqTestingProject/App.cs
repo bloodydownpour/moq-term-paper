@@ -17,22 +17,99 @@ namespace MoqTestingProject
         public async Task RunAsync()
         {
             _logger.LogInformation("Starting application");
-
+            /*
             var persons = _personService.GetAll();
             foreach (Person person in persons)
             {
                 WriteLine(person.ToString());
             }
-
-            _logger.LogInformation("Getting person with ID: 1");
-            Person? johndoe = _personService.GetById(1);
+            int id = Convert.ToInt32(ReadLine());
+            Person? johndoe = _personService.GetById(id);
 
             if (johndoe != null)
             {
                 WriteLine("Person " + johndoe.ToString());
+            } else
+            {
+                _logger.LogWarning($"Person with ID: {id} not found, returning null");
             }
 
-            await Task.CompletedTask;
+            */
+
+           
+            while (true)
+            {
+                WriteLine("\n\nChoose your action:\n1) Get all persons;\n2) Get person by ID;\n" +
+               "3) Add person (ID will assign automatically);\n4) Update/create person(You will assign ID);\n" +
+               "5) Delete person;\n6) Exit;");
+                string? choice = ReadLine();
+                if (choice != null)
+                {
+                    switch (choice)
+                    {
+                        case "1":
+                            {
+                                var persons = _personService.GetAll();
+                                foreach (var person in persons)
+                                {
+                                    WriteLine(person.ToString());
+                                }
+                                break;
+                            }
+                        case "2":
+                            {
+                                Write("Enter person's ID: ");
+                                int id = Convert.ToInt32(ReadLine());
+                                Person? person = _personService.GetById(id);
+                                if (person != null)
+                                {
+                                    WriteLine(person.ToString());
+                                }
+                                break;
+                            }
+                        case "3":
+                            {
+                                WriteLine("Enter person's name: ");
+                                string? name = ReadLine();
+                                WriteLine("Enter person's surname: ");
+                                string? surname = ReadLine();
+                                var persons = _personService.GetAll();
+                                if (name != null && surname != null)
+                                {
+                                    await _personService.UpdateOrAddAsync(new Person(persons.Count() + 1, name, surname));
+                                }
+                                break;
+                            }
+                        case "4":
+                            {
+                                Write("Enter person's ID: ");
+                                int id = Convert.ToInt32(ReadLine());
+                                WriteLine("Enter person's name: ");
+                                string? name = ReadLine();
+                                WriteLine("Enter person's surname: ");
+                                string? surname = ReadLine();
+                                if (name != null && surname != null)
+                                {
+                                    await _personService.UpdateOrAddAsync(new Person(id, name, surname));
+                                }
+                                break;
+                            }
+                        case "5":
+                            {
+                                Write("Enter person's ID: ");
+                                int id = Convert.ToInt32(ReadLine());
+                                await _personService.TryDeleteAsync(_personService.GetById(id));
+                                break;
+                            }
+                        case "6":
+                            {
+                                return;
+                            }
+                    }
+                }
+
+
+            }
         }
     }
 }

@@ -7,7 +7,7 @@ namespace MoqTestingProject
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var host = Host.CreateDefaultBuilder(args)
                 .ConfigureServices((context, services) =>
@@ -27,7 +27,7 @@ namespace MoqTestingProject
 
             using var scope = host.Services.CreateScope();
             var app = scope.ServiceProvider.GetRequiredService<App>();
-            app.RunAsync();
+            await app.RunAsync();
         }
     }
 }

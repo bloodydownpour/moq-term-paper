@@ -10,11 +10,10 @@ namespace MoqTestingProject
     {
         private readonly IPersonRepository _repository = repository;
 
-        public async Task AddAsync(Person person)
+        public async Task UpdateOrAddAsync(Person person)
         {
-            await _repository.CreateAsync(person);
+            await _repository.UpdateOrAddAsync(person);
         }
-
         public async Task<bool> TryDeleteAsync(Person person)
         {
             return await _repository.TryDeleteAsync(person);

@@ -1,42 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace MoqTestingProject
 {
-    public class PersonRepository(EFDbContext context) : IPersonRepository
+    public class PersonRepository(EFDbContext context, ILogger<App> logger) : IPersonRepository
     {
         private readonly EFDbContext _context = context;
-
-        public async Task CreateAsync(Person person)
-        {
-            if (!_context.Persons.Any(x => x.PersonId == person.PersonId))
-            {
-                _context.Persons.Add(person);
-            }
-            await _context.SaveChangesAsync();
-        }
+        private readonly ILogger<App> _logger = logger;
 
         public Person? GetById(int id)
         {
+            _logger.LogInformation($"Trying to get person with ID: {id}");
             return _context.Persons.Where(x => id.Equals(x.PersonId)).AsNoTracking().FirstOrDefault();
         }
 
         public IQueryable<Person> GetAll()
         {
-            return _context.Persons.AsNoTracking();
+            _logger.LogInformation($"Getting all persons from database");
+            return _context.Persons.AsNoTracking().OrderBy(x => x.PersonId);
         }
 
         public async Task UpdateOrAddAsync(Person newPerson)
         {
+            _logger.LogInformation($"Trying to update/add person with ID: {newPerson.PersonId}");
             if (_context.Persons.Any(x => x.PersonId == newPerson.PersonId))
             {
+                _logger.LogInformation($"ID: {newPerson.PersonId} has been updated");
                 _context.Persons.Update(newPerson);
-            } else
+            } 
+            else
             {
+                _logger.LogInformation($"ID: {newPerson.PersonId} has been added");
                 _context.Persons.Add(newPerson);
             }
             await _context.SaveChangesAsync();
@@ -44,13 +38,19 @@ namespace MoqTestingProject
 
         public async Task<bool> TryDeleteAsync(Person person)
         {
-            if (_context.Persons.Any(x => x.PersonId == person.PersonId)) 
+            _logger.LogInformation($"Trying to delete person with ID {person.PersonId}");
+            if (_context.Persons.Any(x => x.PersonId == person.PersonId))
             {
+                _logger.LogInformation($"Person with ID {person.PersonId} has been successfully deleted");
                 _context.Persons.Remove(person);
                 await _context.SaveChangesAsync();
                 return true;
-            } 
-            else return false;
+            }
+            else
+            {
+                _logger.LogError($"Person with ID {person.PersonId} not found, therefore, it cannot be deleted");
+                return false;
+            }
         }
     }
 }
