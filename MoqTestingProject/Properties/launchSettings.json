@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "MoqTestingProject": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}
