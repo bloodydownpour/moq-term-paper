@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using MoqTestingProject.Entities;
 
-namespace MoqTestingProject
+namespace MoqTestingProject.Database
 {
     public class PersonRepository(EFDbContext context, ILogger<App> logger) : IPersonRepository
     {
@@ -30,7 +31,7 @@ namespace MoqTestingProject
             {
                 _logger.LogInformation($"ID: {newPerson.PersonId} has been updated");
                 _context.Persons.Update(newPerson);
-            } 
+            }
             else
             {
                 _logger.LogInformation($"ID: {newPerson.PersonId} has been added");

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MoqTestingProject
+namespace MoqTestingProject.Entities
 {
     public class Person
     {
@@ -16,9 +16,9 @@ namespace MoqTestingProject
 
         public Person(int id, string name, string surname)
         {
-            this.PersonId = id;
-            this.Name = name;
-            this.Surname = surname;
+            PersonId = id;
+            Name = name;
+            Surname = surname;
         }
 
         public override string ToString()

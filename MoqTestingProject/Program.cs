@@ -3,6 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using MoqTestingProject.Database;
+using MoqTestingProject.Entities;
 using System;
 
 namespace MoqTestingProject

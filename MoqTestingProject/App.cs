@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
+using MoqTestingProject.Database;
+using MoqTestingProject.Entities;
 using static System.Console;
 
 namespace MoqTestingProject

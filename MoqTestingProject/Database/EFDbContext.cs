@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MoqTestingProject.Entities;
 
-namespace MoqTestingProject
+namespace MoqTestingProject.Database
 {
     public class EFDbContext : DbContext
     {

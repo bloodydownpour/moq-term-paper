@@ -1,4 +1,4 @@
-﻿namespace MoqTestingProject
+﻿namespace MoqTestingProject.Entities
 {
     public interface IPersonRepository
     {

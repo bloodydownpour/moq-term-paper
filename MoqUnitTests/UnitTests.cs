@@ -1,6 +1,6 @@
 ﻿using Moq;
 using MoqTestingProject;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure.Internal;
+using MoqTestingProject.Entities;
 
 namespace MoqTests;
 

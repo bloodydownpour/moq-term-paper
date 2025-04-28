@@ -1,10 +1,11 @@
-﻿using System;
+﻿using MoqTestingProject.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MoqTestingProject
+namespace MoqTestingProject.Database
 {
     public class PersonService(IPersonRepository repository)
     {

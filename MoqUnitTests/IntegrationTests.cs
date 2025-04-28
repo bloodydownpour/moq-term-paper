@@ -1,10 +1,8 @@
-﻿using Castle.Core.Logging;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using MoqTestingProject;
+using MoqTestingProject.Database;
+using MoqTestingProject.Entities;
 using MoqTests.TestingSupplies;
-using System.Data;
-using System.Runtime.InteropServices;
 
 namespace MoqTests
 {

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MoqTestingProject;
+using MoqTestingProject.Database;
 
 namespace MoqTests.TestingSupplies
 {
