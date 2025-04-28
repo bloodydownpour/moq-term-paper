@@ -17,24 +17,6 @@ namespace MoqTestingProject
         public async Task RunAsync()
         {
             _logger.LogInformation("Starting application");
-            /*
-            var persons = _personService.GetAll();
-            foreach (Person person in persons)
-            {
-                WriteLine(person.ToString());
-            }
-            int id = Convert.ToInt32(ReadLine());
-            Person? johndoe = _personService.GetById(id);
-
-            if (johndoe != null)
-            {
-                WriteLine("Person " + johndoe.ToString());
-            } else
-            {
-                _logger.LogWarning($"Person with ID: {id} not found, returning null");
-            }
-
-            */
 
            
             while (true)

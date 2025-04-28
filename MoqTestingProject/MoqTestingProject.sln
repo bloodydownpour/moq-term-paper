@@ -5,7 +5,7 @@ VisualStudioVersion = 17.12.35514.174
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoqTestingProject", "MoqTestingProject.csproj", "{EFB4932E-80DA-4D54-8975-9BC68425B526}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoqUnitTests", "..\MoqUnitTests\MoqUnitTests.csproj", "{34304239-3C0F-4A16-A8E0-E5A0610B32B7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoqTests", "..\MoqUnitTests\MoqTests.csproj", "{34304239-3C0F-4A16-A8E0-E5A0610B32B7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

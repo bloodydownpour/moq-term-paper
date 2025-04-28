@@ -4,11 +4,11 @@ namespace MoqTestingProject
 {
     public class EFDbContext : DbContext
     {
-        public DbSet<Person> Persons { get; set; }
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public EFDbContext(DbContextOptions options) : base(options)
         {
-            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=MoqTesting;Username=postgres;Password=root");
         }
+
+        public DbSet<Person> Persons { get; set; }
     }
 }
 
