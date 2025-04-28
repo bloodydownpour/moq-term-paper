@@ -87,6 +87,10 @@ namespace MoqTestingProject
                             {
                                 return;
                             }
+                        default:
+                            {
+                                throw new Exception("Choice was not recognized");
+                            }
                     }
                 }
 

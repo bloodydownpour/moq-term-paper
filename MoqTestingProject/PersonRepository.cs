@@ -22,8 +22,11 @@ namespace MoqTestingProject
 
         public async Task UpdateOrAddAsync(Person newPerson)
         {
+            var existingPerson = await _context.Persons
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.PersonId == newPerson.PersonId);
             _logger.LogInformation($"Trying to update/add person with ID: {newPerson.PersonId}");
-            if (_context.Persons.Any(x => x.PersonId == newPerson.PersonId))
+            if (existingPerson != null)
             {
                 _logger.LogInformation($"ID: {newPerson.PersonId} has been updated");
                 _context.Persons.Update(newPerson);
@@ -39,10 +42,11 @@ namespace MoqTestingProject
         public async Task<bool> TryDeleteAsync(Person person)
         {
             _logger.LogInformation($"Trying to delete person with ID {person.PersonId}");
-            if (_context.Persons.Any(x => x.PersonId == person.PersonId))
+            var personToDelete = _context.Persons.FirstOrDefault(x => x.PersonId == person.PersonId);
+            if (personToDelete != null)
             {
                 _logger.LogInformation($"Person with ID {person.PersonId} has been successfully deleted");
-                _context.Persons.Remove(person);
+                _context.Persons.Remove(personToDelete);
                 await _context.SaveChangesAsync();
                 return true;
             }
