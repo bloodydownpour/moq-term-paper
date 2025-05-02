@@ -1,5 +1,6 @@
 ﻿using Moq;
 using MoqTestingProject;
+using MoqTestingProject.Database;
 using MoqTestingProject.Entities;
 
 namespace MoqTests;

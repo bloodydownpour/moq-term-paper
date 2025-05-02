@@ -8,7 +8,6 @@ namespace MoqTests
 {
     public class IntegrationTests : IClassFixture<DatabaseCleaner>
     {
-
         public IntegrationTests() { }
         [Fact]
         public async Task CanInsertPerson()
@@ -63,6 +62,25 @@ namespace MoqTests
         }
 
         [Fact]
+        public async Task CantDeleteNonExistentPerson()
+        {
+            var _cleaner = new DatabaseCleaner();
+            await _cleaner.CleanDatabase();
+            var repoLogger = new LoggerFactory().CreateLogger<App>();
+            IPersonRepository repos = new PersonRepository(_cleaner.Context, repoLogger);
+
+            await repos.UpdateOrAddAsync(new Person(1, "John", "Doe"));
+            await repos.UpdateOrAddAsync(new Person(2, "Jane", "Smith"));
+            await repos.UpdateOrAddAsync(new Person(3, "Алёна", "Найдёнова"));
+            await _cleaner.Context.SaveChangesAsync();
+
+            Assert.False(await repos.TryDeleteAsync(new Person(4, "Несуществующий", "Человек")));
+            await _cleaner.Context.SaveChangesAsync();
+
+            Assert.Equal(3, repos.GetAll().Count());
+        }
+
+        [Fact]
         public async Task CanGetPerson()
         {
             var _cleaner = new DatabaseCleaner();
@@ -74,6 +92,21 @@ namespace MoqTests
 
             var person = repos.GetById(3);
             Assert.Equal("3: Алёна Найдёнова", person.ToString());
+        }
+        [Fact]
+        public async Task CantGetNonExistentPerson()
+        {
+            var _cleaner = new DatabaseCleaner();
+            await _cleaner.CleanDatabase();
+            var repoLogger = new LoggerFactory().CreateLogger<App>();
+            IPersonRepository repos = new PersonRepository(_cleaner.Context, repoLogger);
+
+            await repos.UpdateOrAddAsync(new Person(1, "John", "Doe"));
+            await repos.UpdateOrAddAsync(new Person(2, "Jane", "Smith"));
+            await repos.UpdateOrAddAsync(new Person(3, "Алёна", "Найдёнова"));
+            await _cleaner.Context.SaveChangesAsync();
+
+            Assert.Null(repos.GetById(4));
         }
     }
 }

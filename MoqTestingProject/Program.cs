@@ -2,7 +2,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using MoqTestingProject.Database;
 using MoqTestingProject.Entities;
 using System;
@@ -14,7 +13,8 @@ namespace MoqTestingProject
         public static async Task Main(string[] args)
         {
             var host = Host.CreateDefaultBuilder(args)
-                .ConfigureServices((context, services) =>
+                .ConfigureServices(
+                (context, services) =>
                 {
                     services.AddDbContext<EFDbContext>(options =>
                     {
@@ -30,7 +30,8 @@ namespace MoqTestingProject
                     logging.ClearProviders();
                     logging.AddConsole();
                     logging.SetMinimumLevel(LogLevel.Information);
-                })
+                }
+                )
                 .Build();
 
             using var scope = host.Services.CreateScope();
